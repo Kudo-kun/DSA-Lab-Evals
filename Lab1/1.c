@@ -12,7 +12,7 @@ int min(int x, int* size, int pos[], int mat[][n])
 {
     int minVal = INT_MAX; (*size) = 0;
     for(int j = 0; j < n; j++)
-        if(mat[x][j] <= minVal)
+        if(mat[x][j] < minVal)
             minVal = mat[x][j];
 
     for(int j = 0; j < n; j++)
