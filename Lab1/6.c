@@ -6,9 +6,9 @@
 
 
 /******************************************************************************/
-void SieveOfErato(int a, int b, int arr[])
+void SieveOfErato(int a, int b)
 {
-    int* tmp = (int*)calloc(b, sizeof(int));
+    int tmp[b];
     for(int i = 2; i <= sqrt(b); i++)
         for(int j = 2; i*j <= b; j++)
             tmp[i*j] = 1;
@@ -17,7 +17,7 @@ void SieveOfErato(int a, int b, int arr[])
         if(!tmp[i])
             printf("%d ", i);
 
-    printf("\n"); free(tmp);
+    printf("\n"); 
 }
 /******************************************************************************/
 
@@ -25,7 +25,6 @@ int main()
 {
     int a, b;
     scanf("%d%d", &a, &b);
-    int ans[b];
-    SieveOfErato(a, b, ans);
+    SieveOfErato(a, b);
     return 0;
 }
