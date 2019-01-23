@@ -9,15 +9,6 @@
 
 int v, del, queue[N], front, back, cnt;
 /******************************************************************************/
-int max(int a, int b)
-{
-	if(a >= b)
-		return a;
-	else
-		return b;
-}
-
-
 void printMat(int n, int mat[][n])
 {
 	for(int i = 0; i < n; i++)
