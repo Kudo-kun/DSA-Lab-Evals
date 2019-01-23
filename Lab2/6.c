@@ -7,7 +7,7 @@
 #define N 105
 
 
-int e, v, cnt = 1, flag = 0, queue[N], front, back, state;
+int e, v, cnt = 1, flag = 0, queue[N], front, back;
 /******************************************************************************/
 void ReadMat(int G[][v])
 {
