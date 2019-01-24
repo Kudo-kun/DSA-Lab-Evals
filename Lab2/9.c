@@ -24,17 +24,6 @@ int sumOfMat(int l, int r, int Acc[][n], int mat[][n])
 
 	return sum;
 }
-
-
-void printMat(int mat[][n])
-{
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = 0; j < n; j++)
-			printf("%d ", mat[i][j]);	
-		printf("\n");
-	}
-}
 /******************************************************************************/
 
 int main()
@@ -55,12 +44,8 @@ int main()
 
     for(int i = 0; (i+m) < n; i++)
     	for(int j = 0; (j+m) < n; j++)
-    	{
-    		printf("%d %d\n", minSum, sumOfMat(i, j, Acc, mat));
     		minSum = min(minSum, sumOfMat(i, j, Acc, mat));
-    	}
     
     printf("%d\n", minSum);
-    printMat(Acc);
     return 0;
 }
