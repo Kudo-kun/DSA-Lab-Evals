@@ -7,7 +7,7 @@
 #define N 105
 
 
-int e, v, cnt = 1, flag = 0, queue[N], front, back;
+int e, v, cnt = 1, flag = 0, queue[N], front, back, state;
 /******************************************************************************/
 void ReadMat(int G[][v])
 {
@@ -47,7 +47,7 @@ int countZeros(int arr[])
 
 void printMat(int forb, int mat[][e])
 {
-	printf("Cut Vertex is %d, connected components are:\n", forb); flag = 1;
+	printf("Cut Vertex is %d, connected components are:\n", forb+1); flag = 1;
 	for(int i = 0; i < e; i++)
 	{
 		for(int j = 0; j < e; j++)
@@ -75,8 +75,8 @@ void BFS(int forb, int visited[], int Gcomp[][e])
 			}
 	}
 
-	if(!countZeros(visited))
-		printMat(forb, mat);
+	if(!countZeros(visited) || state == 1)
+		{ printMat(forb, mat); state = 1; }
 } 
 /******************************************************************************/
 
@@ -115,3 +115,17 @@ int main()
 	return 0;
 }
 
+
+
+
+/*
+8 7
+0 1 0 0 0 1 1 1
+1 0 1 1 1 0 0 0
+0 1 0 0 0 0 0 0
+0 1 0 0 0 0 0 0
+0 1 0 0 0 0 0 0
+1 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 
+1 0 0 0 0 0 0 0
+*/
