@@ -47,19 +47,17 @@ void PrintCycles(int i, Node** head)
 {
 	Node* pos = getIthNode(i, head);
 	int fin  = (pos -> id);
-	
-	while(((pos -> prev) -> id) < ((pos -> id)-1))
+	if(pos -> prev -> id < (fin-1))
 	{
 		printf("%d ", fin);
-		Node* curr = (pos -> prev);
-		while(curr && (curr -> id) < fin)
+		pos = pos -> prev; count++;
+		
+		while(pos -> id != fin)
 		{
-			printf("%d ", curr -> id);
-			curr = curr -> next;
+			printf("%d ", pos -> id);
+			pos = pos -> next;
 		}
 		printf("%d\n", fin);
-		pos = pos -> prev;
-		count++;
 	}
 }
 
@@ -105,7 +103,7 @@ int main()
 			break;
 	}
 
-	printf("\nCycles int the list are:\n");
+	printf("\nCycles in the list are:\n");
 	for(int i = 2; i <= len; i++) 
 		PrintCycles(i, &head);
 	
