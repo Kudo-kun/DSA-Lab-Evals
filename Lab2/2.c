@@ -55,13 +55,16 @@ void spec_BFS(int init, int fin, int visited[], int adj[][v])
 		for(int j = 0; j < v; j++)
 			if(adj[x][j] && !visited[j])
 			{
-				queue[back++] = j;
-				par[j] = x;
-				visited[j] = 1;
 				if(j == fin)
 				{
+					par[j] = x;
 					printPath(fin, par);
-					return;
+				}
+				else
+				{
+					queue[back++] = j;
+					par[j] = x;
+					visited[j] = 1;
 				}
 			}
 	}
