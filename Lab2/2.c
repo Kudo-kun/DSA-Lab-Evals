@@ -6,7 +6,8 @@
 #include<limits.h>
 #define N 1005
 
-int e, v, queue[N], front, back, diameter;
+
+int e, v, queue[N], front, back, diameter, par[N];
 /******************************************************************************/
 void BFS(int init, int visited[], int dist[][v], int adj[][v])
 {
@@ -45,28 +46,29 @@ void printPath(int last, int par[])
 }
 
 
-void spec_BFS(int init, int fin, int visited[], int adj[][v])
+void spec_DFS(int x, int fin, int visited[], int adj[][v])
 {
-	int par[v]; par[init] = -1;
-	while(front != back)
+	if(x == fin)
 	{
-		int x = queue[front++];
+		int last = x, len = 0;
+		while(par[last] != -1)
+			{ len++; last = par[last];}	
+
+		if(len == diameter)
+			printPath(fin, par);
+	}
+	else if(!visited[x])
+	{
 		for(int j = 0; j < v; j++)
 			if(adj[x][j] && !visited[j])
 			{
-				if(j == fin)
-				{
-					par[j] = x;
-					printPath(fin, par);
-				}
-				else 
-				{
-					queue[back++] = j;
-					par[j] = x;
-					visited[j] = 1;
-				}
+				par[j] = x;
+				visited[x] = 1;
+				spec_DFS(j, fin, visited, adj);
 			}
 	}
+	visited[x] = 0;
+	return;
 }
 /******************************************************************************/
 
@@ -95,10 +97,17 @@ int main()
 		for(int j = 0; j < v; j++)
 			if(dist[i][j] == diameter)
 			{
-				//dist[j][i] = -1;				
-				memset(visited, 0, v*sizeof(int)); front = 0; back = 0;
-				queue[back++] = i; visited[i] = 1;
-				spec_BFS(i, j, visited, adj);
+				dist[j][i] = -1;
+				memset(visited, 0, v*sizeof(int));
+				memset(par, 0, N*sizeof(int));				
+				par[i] = -1; visited[i] = 1;
+
+				for(int x = 0; x < v; x++)
+					if(adj[i][x])
+					{
+						par[x] = i;
+						spec_DFS(x, j, visited, adj);
+					}
 			}
     
 	return 0;
