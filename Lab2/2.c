@@ -4,9 +4,9 @@
 #include<math.h>
 #include<string.h>
 #include<limits.h>
-#define N 1001
+#define N 1005
 
-int e, v, queue[N], front, back, diameter, flag;
+int e, v, queue[N], front, back, diameter;
 /******************************************************************************/
 void BFS(int init, int visited[], int dist[][v], int adj[][v])
 {
@@ -15,11 +15,10 @@ void BFS(int init, int visited[], int dist[][v], int adj[][v])
 	{
 		int x = queue[front++];
 		for(int j = 0; j < v; j++)
-			if(adj[x][j] && !visited[j] && !dist[x][j])
+			if(adj[x][j] && !visited[j])
 			{
 				visited[j] = 1; queue[back++] = j;
 				dist[init][j] = len;
-				dist[j][init] = dist[init][j];
 			}
 	}
 }
@@ -60,7 +59,7 @@ void spec_BFS(int init, int fin, int visited[], int adj[][v])
 					par[j] = x;
 					printPath(fin, par);
 				}
-				else
+				else 
 				{
 					queue[back++] = j;
 					par[j] = x;
@@ -89,15 +88,14 @@ int main()
 		BFS(i, visited, dist, adj);
 	}
 
-
 	maxOfMat(dist);
 	printf("Diameter of graph is: %d\n", diameter);
 
-	for(int i = 0, x; i < v; i++)
+	for(int i = 0; i < v; i++)
 		for(int j = 0; j < v; j++)
 			if(dist[i][j] == diameter)
 			{
-				dist[j][i] = -1;				
+				//dist[j][i] = -1;				
 				memset(visited, 0, v*sizeof(int)); front = 0; back = 0;
 				queue[back++] = i; visited[i] = 1;
 				spec_BFS(i, j, visited, adj);
