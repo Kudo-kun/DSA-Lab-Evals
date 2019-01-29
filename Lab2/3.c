@@ -8,13 +8,6 @@
 
 int v, e, queue[N], front, back;
 /******************************************************************************/
-void setArr(int arr[])
-{
-	for(int i = 0; i < v; i++)
-		arr[i] = -1;
-}
-
-
 int BFS(int colors[], int adj[][v])
 {
 	while(front != back)
@@ -40,7 +33,7 @@ int main()
 {
 	scanf("%d%d", &v, &e);
 	int adj[v][v], colors[v];
-	setArr(colors);
+	memset(colors, -1, v*sizeof(int));
 	
 	for(int i = 0; i < v; i++)
 		for(int j = 0; j < v; j++)
