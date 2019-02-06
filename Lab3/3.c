@@ -7,7 +7,7 @@
 #define N 26
 #define MAX 1005
 
-int k, arr[N], cnt;
+int k;
 /******************************************************************************/
 typedef struct nodetype
 {
@@ -25,11 +25,21 @@ void Push_back(int x, Node** head, Node** tail)
     *tail = tmp;
 }
 
+void Insert_beg(int x, Node** head)
+{
+    Node* tmp = (Node*)malloc(sizeof(Node));
+    tmp -> data = x; tmp -> next = NULL;
+    if(*head)
+        tmp -> next = *head;
+       
+     *head = tmp;
+}
+
 
 void Traverse(Node** head)
 {
     Node* pos = *head;
-    while(pos -> next)
+    while(pos)
     {
         printf("%d ", pos -> data);
         pos = pos -> next;
@@ -39,29 +49,19 @@ void Traverse(Node** head)
 
 int main()
 {
-    Node* head = NULL, *tail = NULL;
+    Node* head1 = NULL, *head2 = NULL, *tail1 = NULL;
     scanf("%d", &k);
-    for(cnt = 1; cnt <= N; cnt++)
+    for(int i = 1, x; i <= N; i++)
     {
-        char x;
-        scanf("%d%c", &arr[cnt], &x);
-        if(x == '\n')
+        char ch;
+        scanf("%d%c", &x, &ch);
+        (i%k) ? Insert_beg(x, &head2) : Push_back(x, &head1, &tail1);
+    
+        if(ch == '\n')
             break;
     }
-
-    int sel[cnt+1];
-    memset(sel, 0, cnt*sizeof(int));
-    for(int i = 1; (i*k) <= cnt; i++)
-    {
-        sel[i*k] = 1;
-        Push_back(arr[i*k], &head, &tail);
-    }
-
-
-    for(int i = cnt; i >= 0; i--)
-        if(!sel[i])
-            Push_back(arr[i], &head, &tail);
     
-    Traverse(&head);
+    Traverse(&head1);
+    Traverse(&head2);
     return 0;
 }
