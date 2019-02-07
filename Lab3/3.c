@@ -52,7 +52,7 @@ int main()
 {
     Node* head1 = NULL, *head2 = NULL, *tail1 = NULL;
     scanf("%d", &k);
-    for(int i = 1, x; i <= N; i++)
+    for(int i = 1, x; i <= MAX; i++)
     {
         char ch;
         scanf("%d%c", &x, &ch);
