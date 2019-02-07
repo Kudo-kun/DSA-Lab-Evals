@@ -25,7 +25,7 @@ void Push_back(int x, Node** head, Node** tail)
     *tail = tmp;
 }
 
-void Insert_beg(int x, Node** head)
+void Emplace_front(int x, Node** head)
 {
     Node* tmp = (Node*)malloc(sizeof(Node));
     tmp -> data = x; tmp -> next = NULL;
@@ -56,7 +56,7 @@ int main()
     {
         char ch;
         scanf("%d%c", &x, &ch);
-        (i%k) ? Insert_beg(x, &head2) : Push_back(x, &head1, &tail1);
+        (i%k) ? Emplace_front(x, &head2) : Push_back(x, &head1, &tail1);
     
         if(ch == '\n')
             break;
