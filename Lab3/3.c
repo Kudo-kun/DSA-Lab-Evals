@@ -36,9 +36,10 @@ void Insert_beg(int x, Node** head)
 }
 
 
-void Traverse(Node** head)
+void Traverse(Node** head1, Node** head2, Node** tail1)
 {
-    Node* pos = *head;
+    (*tail1) -> next = *head2;
+    Node* pos = *head1;
     while(pos)
     {
         printf("%d ", pos -> data);
@@ -60,8 +61,7 @@ int main()
         if(ch == '\n')
             break;
     }
-    
-    Traverse(&head1);
-    Traverse(&head2);
+
+    Traverse(&head1, &head2, &tail1);
     return 0;
 }
