@@ -41,14 +41,9 @@ int main()
 	for(int i = 0, j; i < n; i++)
 	{
 		j = arr[i]-1;
-		char tmp = s1[j];
 		s1[j] = '-';
-		printf("%s\n", s1);
 		if(func())
-		{
 			cnt++;
-			printf("%d ", arr[i]);
-		}
 		else
 			break;
 	}
