@@ -4,41 +4,55 @@
 #include<math.h>
 #include<string.h>
 #include<limits.h>
-#define N 26
-#define MAX 1005
+#define N 1005
+#define ll long long int
 
-char s[MAX], p[MAX];
-int n, f1[N], f2[N], ans;
+int n, cnt;
+char s1[N], s2[N];
 /******************************************************************************/
+int helper(int* init, char ch, char str[])
+{
+	for(; *init < strlen(s1); (*init)++)
+		if(str[(*init)] == ch)
+			{(*init)++; return 1;}
 
+	return 0;
+}
+
+
+int func()
+{
+	for(int i = 0, init = 0; i < strlen(s2) && init < strlen(s1); i++)
+		if(!helper(&init, s2[i], s1))
+			return 0;
+
+	return 1;
+}
 /******************************************************************************/
 
 int main()
 {
-    scanf("%s%s%d", s, p, &n);
-    int arr[n];
-    for(int i = 0; i < n; i++)
-        scanf("%d", arr+i);
-    
-    for(int i = 0; i < strlen(p); i++)
-        f2[p[i] - 97]++;
+	scanf("%s%s%d", s1, s2, &n);
+	int arr[n];
 
-    for(int i = 0; i < strlen(s); i++)
-        f1[s[i] - 97]++;
+	for(int i = 0, j; i < n; i++)
+		scanf("%d", &arr[i]);
 
-    for(int i = 0; i < n; i++)
-    {
-        int x = s[arr[i] - 1] - 97;
-        if(!f2[x] || f1[x] > f2[x])
-        {
-            ans++;
-            f1[x]--;
-            printf("%c ",x+97);
-        }
-        else if(f1[x] <= f2[x])
-            break;
-    }
+	for(int i = 0, j; i < n; i++)
+	{
+		j = arr[i]-1;
+		char tmp = s1[j];
+		s1[j] = '-';
+		printf("%s\n", s1);
+		if(func())
+		{
+			cnt++;
+			printf("%d ", arr[i]);
+		}
+		else
+			break;
+	}
 
-    printf("\n%d\n", ans);
-    return 0;
+	printf("\n%d\n", cnt);
+	return 0;
 }
