@@ -15,6 +15,15 @@ typedef struct tupletyple
 } Triple;
 
 
+int max(int a, int b)
+{
+	if(a >= b)
+		return a;
+	else
+		return b;
+}
+
+
 void swap(Triple* a, Triple* b)
 {
 	Triple c = *a;
@@ -46,7 +55,7 @@ int main()
 	while(T--)
 	{
 		scanf("%d", &n);
-		int ans[n], cnt1 = 0, cnt2 = 0;
+		int ans[n];
 		Triple arr[n];
 		for(int i = 0, l, r; i < n; i++)
 		{
@@ -55,21 +64,24 @@ int main()
 		}
 
 		sort(arr);
-		for(int i = 0; i < n; i++)
+		int Rmax = arr[0].first, i;
+		for(i = 0; i < n; i++)
 		{
-			if(!i)
-			{
-				ans[arr[i].j] = 1;
-				cnt1++;
-			}
-			else
-			{
-				int l = arr[i].first, L = arr[i-1].first, R = arr[i-1].second;
-				ans[arr[i].j] = ((l >= L && l <= R) ? ans[arr[i-1].j] : !ans[arr[i-1].j]);
-				(l >= L && l <= R) ? cnt1++ : cnt2++;
-			}
+			if(arr[i].first > Rmax)
+				break;
+			Rmax = max(Rmax, arr[i].second);
 		}
-		(!cnt1 || !cnt2) ? printf("-1\n") : PrintList(ans);
+
+		if(i == n)
+			printf("-1\n");
+		else
+		{
+			for(int x = 0; x < i; x++)
+				ans[arr[x].j] = 1;
+			for(int x = i; x < n; x++)
+				ans[arr[x].j] = 2;
+			PrintList(ans);
+		}
 	}
 	return 0;
 }
