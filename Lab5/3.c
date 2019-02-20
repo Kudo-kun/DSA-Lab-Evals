@@ -73,7 +73,6 @@ void FormList(int x, Node** head, Node** tail)
 
 void Insert(int k, Node* loc, Node** head, Node** tail)
 {
-	printf("...%d...\n", loc -> data);
 	if((*tail) -> data < k)
 	{
 		FormList(k, head, tail);
