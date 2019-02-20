@@ -52,9 +52,6 @@ int main()
 		scanf("%d", arr+i);
 	
 	sort(0, n, arr);
-	for(int i = 0; i < n; i++)
-		printf("%d ", arr[i]);
-
 	printf("\n%d\n", ans);
 	return 0;
 }
