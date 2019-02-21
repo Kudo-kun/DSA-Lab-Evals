@@ -4,20 +4,21 @@
 #include<math.h>
 #include<string.h>
 #include<limits.h>
-#define N 1005
+#define N 105
 #define ll long long int
 
-int T, n;
+
+int n, q, list[N];
 /******************************************************************************/
-typedef struct tupletyple
+typedef struct tupletype
 {
-	int first, second, j;
+	int id, L, R;
 } Triple;
 
 
-int max(int a, int b)
+int min(int a, int b)
 {
-	if(a >= b)
+	if(a <= b)
 		return a;
 	else
 		return b;
@@ -36,52 +37,78 @@ void sort(Triple arr[])
 {
 	for(int i = 0; i < n; i++)
 		for(int j = i; j < n; j++)
-			if(arr[i].first > arr[j].first)
+			if(arr[i].L > arr[j].L || ((arr[i].L == arr[j].L) && (arr[i].R > arr[j].R)))
 				swap(arr+i, arr+j);
 }
 
 
-void PrintList(int arr[])
+int occupied(int L, int R)
 {
-	for(int i = 0; i < n; i++)
-		(arr[i] == 1) ? printf("IM ") : printf("CA ");
-	printf("\n");
+	for(int i = L; i <= R; i++)
+		if(list[i])
+			return list[i];
+
+	return 0;
+}
+
+
+void fill(int k, int L, int R)
+{
+	for(int i = L; i <= R; i++)
+		list[i] = k;
 }
 /******************************************************************************/
 
 int main()
-{	
-	scanf("%d", &T);
-	while(T--)
+{
+	scanf("%d", &q);
+	while(q--)
 	{
 		scanf("%d", &n);
-		int ans[n];
 		Triple arr[n];
-		for(int i = 0, l, r; i < n; i++)
+		for(int i = 0; i < n; i++)
 		{
-			scanf("%d%d", &arr[i].first, &arr[i].second);
-			arr[i].j = i;
+			scanf("%d%d", &arr[i].L, &arr[i].R);
+			arr[i].id = i;
 		}
 
+		int c[4], ans[n];
+		memset(list, 0, N*sizeof(int));
+		memset(ans, 0, n*sizeof(int));
+		memset(c, 0, 4*sizeof(int));
 		sort(arr);
-		int Rmax = arr[0].first, i;
-		for(i = 0; i < n; i++)
+		for(int i = 0; i < n; i++)
 		{
-			if(arr[i].first > Rmax)
-				break;
-			Rmax = max(Rmax, arr[i].second);
+			int k = occupied(arr[i].L, arr[i].R);
+			if(!k)
+			{
+				if(c[1] == min(c[1], c[2]))
+				{
+					fill(1, arr[i].L, arr[i].R);
+					c[1]++;
+					ans[arr[i].id] = 1;
+				}
+				else if(c[2] == min(c[1], c[2]))
+				{
+					fill(2, arr[i].L, arr[i].R);
+					c[2]++;
+					ans[arr[i].id] = 2;
+				}
+			}
+			else
+			{
+				fill(k, arr[i].L, arr[i].R); 
+				c[k]++;
+				ans[arr[i].id] = k;
+			}
 		}
-
-		if(i == n)
-			printf("-1\n");
+		if(!c[1] || !c[2])
+			printf("-1");
 		else
-		{
-			for(int x = 0; x < i; x++)
-				ans[arr[x].j] = 1;
-			for(int x = i; x < n; x++)
-				ans[arr[x].j] = 2;
-			PrintList(ans);
-		}
+			for(int i = 0; i < n; i++)
+				(ans[i] == 1) ? printf("CA ") : printf("IM ");
+		
+		printf("\n");
 	}
 	return 0;
 }
