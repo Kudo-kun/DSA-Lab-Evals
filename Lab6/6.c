@@ -52,7 +52,7 @@ int main()
 {
 	scanf("%s", str);
 	int L = (strlen(str) & 1) ? (strlen(str) - 1) : strlen(str);
-	printf("%d\n", L);
+
 	for(; L > 2 && !flag; L--)
 		for(int i = 0; (i+L) <= strlen(str); i++)
 			if(isPalindrome(i, L, str) && isSorted(i, L, str) && cmp(i, L, str, ans))
