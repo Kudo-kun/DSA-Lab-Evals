@@ -23,7 +23,5 @@ int main()
 		for(int j = i+1; j <= m; j++)
 			(!k) ? printf("%d %d\n", i, j) : printf("%d %d\n", j, i);
 
-	
-	
   	return 0;   
 }
