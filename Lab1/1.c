@@ -5,7 +5,7 @@
 #include<string.h>
 #include<limits.h>
 #define N 50
-
+// added a comment
 int n, flag = 0;
 /******************************************************************************/
 int min(int x, int* size, int pos[], int mat[][n])
