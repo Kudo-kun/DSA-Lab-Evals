@@ -34,8 +34,8 @@ int main()
     for(int i = 0; i < n; i++)
         for(int j = 0; j < n; j++)
             if((pa[i].first < pa[j].first) && pa[i].second > pa[j].second)
-                ans++, printf("%d %d %d %d\n", pa[i].first, pa[i].second, pa[j].first, pa[j].second);
+                ans++;
 
-    cout << (ans/2) << endl;
+    cout << ans << endl;
     return 0;
 }
