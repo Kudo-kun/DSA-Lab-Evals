@@ -9,14 +9,8 @@
 #define max(a, b) ((a > b) ? a : b)
 #define min(a, b) ((a < b) ? a : b)
 
-int n, max_dig;
+int n;
 /******************************************************************************/
-typedef struct pairtype
-{
-	int first, second, X;
-} Pair;
-
-
 int digitCount(int x)
 {
 	int cnt;
@@ -27,33 +21,25 @@ int digitCount(int x)
 }
 
 
-void sort(Pair arr[])
+int cmp(const void* a, const void* b)
 {
-	for(int i = 0; i < n; i++)
-		for(int j = i; j < n; j++)
-			if((arr[i].second < arr[j].second) || ((arr[i].second == arr[j].second) && (arr[j].first < arr[i].first)))
-			{
-				Pair c = arr[i];
-				arr[i] = arr[j];
-				arr[j] = c;
-			}
+	int x = (*(const int*)a), y = (*(const int*)b);
+	int c = x*pow(10, digitCount(y)) + y;
+	int d = y*pow(10, digitCount(x)) + x;
+	return (c < d);
 }
 /******************************************************************************/
 
 int main()
 {
 	scanf("%d", &n);
-	Pair arr[n];
+	int arr[n];
 	for(int i = 0; i < n; i++)
-		scanf("%d", &arr[i].first), arr[i].X = digitCount(arr[i].first), max_dig = max(max_dig, arr[i].X);
-	for(int i = 0; i < n; i++)
-		arr[i].second = (arr[i].first * pow(10, (max_dig - arr[i].X)));
+		scanf("%d", &arr[i]);
 	
-	sort(arr);
+	qsort(arr, n, sizeof(int), cmp);
 	for(int i = 0; i < n; i++)
-		printf("%d", arr[i].first);
-	
-	printf("\n");
+		printf("%d", arr[i]);
 	return 0;
 }
 
