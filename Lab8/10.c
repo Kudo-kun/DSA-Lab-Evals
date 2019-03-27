@@ -31,8 +31,6 @@ int update(int j, int m, int offset)
 int main()
 {
 	scanf("%d%d\n%s", &n, &k, s);
-	printf("received string is : %s\n", s);
-	
 	int i = 0;	
 	while(i < (n-1))
 	{
