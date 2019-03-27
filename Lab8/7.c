@@ -33,9 +33,6 @@ Pair setSize(int i, int arr[])
 
 int main()
 {
-	freopen("inp.txt", "r", stdin);
-	freopen("outp.txt", "w", stdout);
-	
 	scanf("%d", &n);
 	int arr[n];
 	for(int i = 0; i < n; i++)
