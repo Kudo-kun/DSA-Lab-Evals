@@ -10,8 +10,8 @@
 #define min(a, b) ((a < b) ? a : b)
 
 
-int n, ans;
-int min_heap[N], last = 1;
+int n, nidx, ans;
+int nheap[N];
 /******************************************************************************/
 void swap(int* a, int* b)
 {
@@ -20,34 +20,28 @@ void swap(int* a, int* b)
 	*b = c;
 }
 
-void Sift(int j)
+void Pushn(int u)
 {
-	int par = j/2;
-	if(par >= 1 && min_heap[par] > min_heap[j])
-		swap(&min_heap[par], &min_heap[j]), Sift(par);
+	nheap[++nidx] = u;
+	int i = nidx;
+	while(i > 1 && nheap[i/2] > nheap[i])
+		swap(&nheap[i], &nheap[i/2]), (i /= 2);
 }
 
-void Push(int x)
+int Popn()
 {
-	min_heap[last] = x;
-	if(last > 1)
-		Sift(last);
-	last++;
-}
-
-void Pop(int j)
-{
-	int l = (2*j), r = (2*j + 1), nxt;
-	if(min_heap[l] && min_heap[l] < min_heap[r] || !min_heap[r])
-		nxt = l;
-	else if(!min_heap[l] || min_heap[r])
-		nxt = r;
-
-	if(min_heap[l] || min_heap[r])
-		min_heap[j] = min_heap[nxt], Pop(nxt);
-	else
-		min_heap[j] = 0;
-	last--;
+	int val = nheap[1], i = 1;
+	nheap[1] = nheap[nidx--];
+	while(1 && i < nidx)
+	{
+		if(nheap[2*i] < nheap[2*i + 1])
+			swap(&nheap[i], &nheap[2*i]), (i *= 2);
+		else if(nheap[2*i] > nheap[2*i + 1])
+			swap(&nheap[i], &nheap[2*i + 1]), (i = (2*i + 1));
+		else
+			break;
+	}
+	return val;
 }
 /******************************************************************************/
 
@@ -55,17 +49,16 @@ int main()
 {
 	freopen("inp.txt", "r", stdin);
 	freopen("outp.txt", "w", stdout);
-	
 	scanf("%d", &n);
-	for(int i = 0, x; i < n; i++)
+	for(int i = 0, u; i < n; i++)
 	{
-		scanf("%d", &x);
-		if(last != 1 && (min_heap[1] < x))
-			ans += (x - min_heap[1]), Pop(1);
-		Push(x);
+		scanf("%d", &u);
+		if(nidx > 1 && nheap[1] < u)
+			ans += (u - nheap[1]), Popn(), Pushn(u);
+		Pushn(u);
 	}
 
-	printf("Total operations: %d\n", ans);
+	printf("Minimum no. of updations: %d\n", ans);
 	return 0;
 }
 
