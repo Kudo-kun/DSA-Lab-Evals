@@ -25,9 +25,6 @@ int check(int x, int y, int l, int b, int mat[][n])
 
 int main()
 {
-	// freopen("inp.txt", "r", stdin);
-	// freopen("outp.txt", "w", stdout);
-	
 	scanf("%d", &n);
 	int mat[n][n];
 	for(int i = 0; i < n; i++)
