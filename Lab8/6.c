@@ -30,8 +30,7 @@ int Peek(Stack* xyz)
 
 int Pop(Stack* xyz)
 {
-	int val = xyz -> arr[xyz -> top];
-	(xyz -> top)--;
+	int val = xyz -> arr[(xyz -> top)--];
 	return val;
 }
 /******************************************************************************/
