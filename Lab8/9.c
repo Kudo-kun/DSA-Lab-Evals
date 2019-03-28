@@ -47,8 +47,6 @@ int Popn()
 
 int main()
 {
-	freopen("inp.txt", "r", stdin);
-	freopen("outp.txt", "w", stdout);
 	scanf("%d", &n);
 	for(int i = 0, u; i < n; i++)
 	{
