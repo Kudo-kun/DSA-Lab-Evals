@@ -21,6 +21,7 @@ int dynamicInit(int n)
 			ans_len = (min(ans_len, dynamicInit(max(j, n/j))) + 1);
 
 	dp[n] = min(ans_len, x);
+	return dp[n];
 }
 
 /******************************************************************/
@@ -28,11 +29,10 @@ int dynamicInit(int n)
 int main()
 {
 	scanf("%d", &T);
-	dp[0] = 1;
+	dp[1] = 1;
 	dp[2] = 2;
 	dp[3] = dp[4] = 3;
 	while(T--)
-		scanf("%d", &k), printf("%d\n", dynamicInit(k));
-
+		scanf("%d", &k), printf("Min steps are: %d\n", dynamicInit(k));
 	return 0;
 }
